@@ -1,0 +1,29 @@
+body {
+    font-size: 12px;
+}
+
+h3, h5, ul {
+    margin: 0px;
+    padding: 0px;
+}
+.collapsable h3 {
+    display: block;
+    height: 48px;
+    background-color: #dae9f4;
+    padding: 0 18px;
+}
+.collapsable h3 a {
+    display: block;
+    color: #3399cc;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 32px;
+}
+.collapsable h3 span {
+    display: block;
+    font-size: 12px;
+}
+
+.collapsable .closed {
+    display: none;
+}
