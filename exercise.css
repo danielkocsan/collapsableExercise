@@ -19,11 +19,20 @@ h3, h5, ul {
     font-size: 16px;
     line-height: 32px;
 }
+
 .collapsable h3 span {
     display: block;
     font-size: 12px;
 }
 
 .collapsable .closed {
-    display: none;
+}
+
+.collapsable li > ul {
+    display: block;
+    overflow: hidden;
+    transition: height 1s;
+    -moz-transition: height 1s;
+    -webkit-transition: height 1s;
+    -o-transition: height 1s;
 }

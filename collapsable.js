@@ -27,17 +27,39 @@ var Tools = {};
                 element = this.children[i];
                 
                 if (element.nodeName === this.openerNode) {
-                    this.bindElmement(element);
+                    this.bindElement(element);
                 }
             }
         },
 
-        bindElmement: function (element) {
-            var closure = (function (that) {
+        bindElement: function (element) {
+            var elementChildren = element.childNodes,
+                i = 0,
+                length = elementChildren.length,
+                child = null,
+                closure = (function (that) {
                 return function (event) {
-                    that.handleClick(this);
+                    that.handleClick(event, this);
                 }
             }(this));
+            
+            for (i = 0; i < length; i += 1) {
+                child = elementChildren[i];
+                
+                if (child.nodeName === this.collapsableNode) {
+                    if (!element.data) {
+                        element.data = {};
+                    }
+                    if (!child.data) {
+                        child.data = {};
+                    }
+
+                    child.data.originalHeight = child.clientHeight;
+                    child.style.height = child.clientHeight + 'px';
+                    child.data.closed = (child.className === this.closedText);
+                    element.data.child = child;
+                }
+            }
 
             element.addEventListener(
                 'click', 
@@ -46,28 +68,21 @@ var Tools = {};
             );
         },
 
-        handleClick: function (element) {
-            var elementChildren = element.childNodes,
-                i = 0,
-                length = elementChildren.length,
-                child = null;
-            
-            for (i = 0; i < length; i += 1) {
-                child = elementChildren[i];
-                
-                if (child.nodeName === this.collapsableNode) {
-                    this.toggleElement(child);
-                }
-            }
+        handleClick: function (event, element) {
+            this.toggleElement(element.data.child);
         },
         
         toggleElement: function (element) {
-            if (element.className === this.closedText) {
+            if (element.data.closed) {
+                element.style.height = element.data.originalHeight + 'px';
                 element.className = this.openText;
             }
             else {
+                element.style.height = '0px';
                 element.className = this.closedText;
             }
+            
+            element.data.closed = !element.data.closed;
         } 
     }
 }());
