@@ -10,6 +10,7 @@ h3, h5, ul {
 .collapsable a {
     color: #3399cc;
     text-decoration: none;
+    outline: none;
 }
 
 .collapsable h3 {
