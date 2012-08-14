@@ -5,7 +5,8 @@ var Tools = {};
     Tools.Collapsable = function (element) {
         this.element = element;
         this.children = element.childNodes;
-        this.openerNode = 'LI';
+        this.openerNode = 'H3';
+        this.containerNode = 'LI';
         this.collapsableNode = 'DIV';
         this.closedText = 'closed';
         this.openText = 'open';
@@ -26,7 +27,7 @@ var Tools = {};
             for (i = 0; i < length; i += 1) {
                 element = this.children[i];
 
-                if (element.nodeName === this.openerNode) {
+                if (element.nodeName === this.containerNode) {
                     this.bindElement(element);
                 }
             }
@@ -37,11 +38,12 @@ var Tools = {};
                 i = 0,
                 length = elementChildren.length,
                 child = null,
-                closure = (function (that) {
+                opener = null,
+                closure = (function (that, element) {
                     return function (event) {
-                        that.handleClick(event, this);
+                        that.handleClick(event, element);
                     };
-                }(this));
+                }(this, element));
 
             for (i = 0; i < length; i += 1) {
                 child = elementChildren[i];
@@ -63,9 +65,13 @@ var Tools = {};
                         child.style.height = '0px';
                     }
                 }
+
+                if (child.nodeName === this.openerNode) {
+                    opener = child;
+                }
             }
 
-            element.addEventListener(
+            opener.addEventListener(
                 'click',
                 closure,
                 true
