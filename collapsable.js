@@ -7,12 +7,12 @@ var Tools = {};
         this.children = element.childNodes;
         this.openerNode = 'LI';
         this.collapsableNode = 'DIV';
-        this.closedText = 'closed',
-        this.openText = 'open'
+        this.closedText = 'closed';
+        this.openText = 'open';
 
         this.init();
-    }
-    
+    };
+
     Tools.Collapsable.prototype = {
         init: function () {
             this.setup();
@@ -25,7 +25,7 @@ var Tools = {};
 
             for (i = 0; i < length; i += 1) {
                 element = this.children[i];
-                
+
                 if (element.nodeName === this.openerNode) {
                     this.bindElement(element);
                 }
@@ -38,14 +38,14 @@ var Tools = {};
                 length = elementChildren.length,
                 child = null,
                 closure = (function (that) {
-                return function (event) {
-                    that.handleClick(event, this);
-                }
-            }(this));
-            
+                    return function (event) {
+                        that.handleClick(event, this);
+                    };
+                }(this));
+
             for (i = 0; i < length; i += 1) {
                 child = elementChildren[i];
-                
+
                 if (child.nodeName === this.collapsableNode) {
                     if (!element.data) {
                         element.data = {};
@@ -58,7 +58,7 @@ var Tools = {};
                     child.style.height = child.clientHeight + 'px';
                     element.data.closed = (element.className === this.closedText);
                     element.data.child = child;
-                    
+
                     if (element.data.closed) {
                         child.style.height = '0px';
                     }
@@ -66,8 +66,8 @@ var Tools = {};
             }
 
             element.addEventListener(
-                'click', 
-                closure, 
+                'click',
+                closure,
                 true
             );
         },
@@ -75,18 +75,17 @@ var Tools = {};
         handleClick: function (event, element) {
             this.toggleElement(element, element.data.child);
         },
-        
+
         toggleElement: function (element, child) {
             if (element.data.closed) {
                 child.style.height = child.data.originalHeight + 'px';
                 element.className = this.openText;
-            }
-            else {
+            } else {
                 child.style.height = '0px';
                 element.className = this.closedText;
             }
-            
+
             element.data.closed = !element.data.closed;
-        } 
-    }
+        }
+    };
 }());
