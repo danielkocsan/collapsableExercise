@@ -6,7 +6,7 @@ var Tools = {};
         this.element = element;
         this.children = element.childNodes;
         this.openerNode = 'LI';
-        this.collapsableNode = 'UL';
+        this.collapsableNode = 'DIV';
         this.closedText = 'closed',
         this.openText = 'open'
 
@@ -56,8 +56,12 @@ var Tools = {};
 
                     child.data.originalHeight = child.clientHeight;
                     child.style.height = child.clientHeight + 'px';
-                    child.data.closed = (child.className === this.closedText);
+                    element.data.closed = (element.className === this.closedText);
                     element.data.child = child;
+                    
+                    if (element.data.closed) {
+                        child.style.height = '0px';
+                    }
                 }
             }
 
@@ -69,16 +73,16 @@ var Tools = {};
         },
 
         handleClick: function (event, element) {
-            this.toggleElement(element.data.child);
+            this.toggleElement(element, element.data.child);
         },
         
-        toggleElement: function (element) {
+        toggleElement: function (element, child) {
             if (element.data.closed) {
-                element.style.height = element.data.originalHeight + 'px';
+                child.style.height = child.data.originalHeight + 'px';
                 element.className = this.openText;
             }
             else {
-                element.style.height = '0px';
+                child.style.height = '0px';
                 element.className = this.closedText;
             }
             

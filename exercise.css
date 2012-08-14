@@ -6,6 +6,12 @@ h3, h5, ul {
     margin: 0px;
     padding: 0px;
 }
+
+.collapsable a {
+    color: #3399cc;
+    text-decoration: none;
+}
+
 .collapsable h3 {
     display: block;
     height: 48px;
@@ -14,8 +20,6 @@ h3, h5, ul {
 }
 .collapsable h3 a {
     display: block;
-    color: #3399cc;
-    text-decoration: none;
     font-size: 16px;
     line-height: 32px;
 }
@@ -23,16 +27,53 @@ h3, h5, ul {
 .collapsable h3 span {
     display: block;
     font-size: 12px;
+    color: grey;
 }
 
-.collapsable .closed {
+.collapsable > li{
+    margin-bottom: 9px;
 }
 
-.collapsable li > ul {
+.collapsable > li > div {
     display: block;
     overflow: hidden;
     transition: height 1s;
     -moz-transition: height 1s;
     -webkit-transition: height 1s;
     -o-transition: height 1s;
+    margin: 9px 18px;
+}
+
+.collapsable > li ul {
+    margin-bottom: 9px;
+}
+
+.collapsable > li ul li { 
+    line-height: 24px;
+    border: 1px solid #dae9f4;;
+    border-width: 0 0 1px 0;
+}
+.collapsable .price {
+    float: right;
+}
+
+.collapsable .price .old {
+    text-decoration: line-through;
+}
+.collapsable .price .current {
+    color: green;
+    font-weight: bold;
+}
+
+.collapsable > li ul li a {
+    color: #3399cc;
+}
+
+.collapsable > li h3 {
+    background-image: url('resource/interview/icon_arrow_open.png');
+    background-position: 7px 10px;
+    background-repeat: no-repeat;
+}
+.collapsable > li.closed h3{
+    background-image: url('resource/interview/icon_arrow.png');
 }
